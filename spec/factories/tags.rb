@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :tag do
-    title { "MyString" }
+    title { Faker::Music.genre }
   end
 end
