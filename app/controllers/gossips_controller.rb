@@ -14,9 +14,22 @@ class GossipsController < ApplicationController
   end
 
   def new
+    # puts "-*" * 30
+    # puts params
+    # puts "-*" * 30
+    @gossips = Gossip.new
   end
 
   def create
+    puts "-*" * 30
+    puts params
+    puts "-*" * 30
+    # @gossips = Gossip.new()
+    # if @gossips.save
+    #   redirect_to @gossip
+    # else
+    #   render :new
+    # end
   end
 
   def edit
