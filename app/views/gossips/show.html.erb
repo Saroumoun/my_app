@@ -1,2 +1,15 @@
-<h1>Gossips#show</h1>
-<p>Find me in app/views/gossips/show.html.erb</p>
+<div class="card text-center mt-3">
+  <div class="card-header">
+    Gossip n°<%= params[:id]%>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= @gossips.title%></h5>
+    <p class="card-text"><%= @gossips.content%></p>
+    <p class="card-text"> -- by <%= @gossips.user.first_name%> <%= @gossips.user.last_name%></p>
+    <%= link_to "Learn more about #{@gossips.user.first_name}", user_path(@gossips.user.id), class: "text-primary"%>
+  </div>
+  <div class="card-footer text-muted font-italic">
+    created the <%= @gossips.created_at.strftime("%Y/%m/%d") %>
+
+  </div>
+</div>

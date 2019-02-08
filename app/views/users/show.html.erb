@@ -1,0 +1,19 @@
+	<div class="card text-center mt-3">
+	  <h1 class="card-header"><%= @users.first_name %> <%= @users.last_name %>'s page</h1>
+	  <div class="card-body"> 
+	    <h5 class="card-title">Description : <span class="font-italic"><%= @users.description %></span></h5>
+	    <p class="card-text"><%= @users.first_name %> is <%= @users.age %> years old and live in <%= @users.city.name %>. Reach this author at : <%= @users.email %></p>
+	  </div>
+	</div>
+
+	<h3 class="text-center mt-5"><%= @users.first_name %>'s other gossip :</h3>
+	<div class="row mt-3">
+	  <% @users.gossips.each do |gossip| %>
+		<div class="card mx-auto mb-1" style="width: 45rem;">
+		  <div class="card-body">
+		  <h5 class="card-title"><%= gossip.title %></h5>
+		  <p class="card-text"><%= gossip.content %></p>
+		  </div>
+		</div>
+	  <% end %>
+	</div>

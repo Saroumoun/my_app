@@ -1,6 +1,6 @@
-class GossipsController < ApplicationController
-  def index
-    @gossips = Gossip.all
+class UsersController < ApplicationController
+	def index
+    @users = User.all
     # puts "-" * 30
     # puts params
     # puts "-" * 30
@@ -10,7 +10,7 @@ class GossipsController < ApplicationController
     # puts "-*" * 30
     # puts params
     # puts "-*" * 30
-    @gossips = Gossip.find(params[:id])
+    @users = User.find(params[:id])
   end
 
   def new
