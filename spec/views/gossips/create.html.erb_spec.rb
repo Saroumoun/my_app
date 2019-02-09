@@ -1,5 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe "gossips/create.html.erb", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  context 'some context' do  
+    it 'should display something' do
+      # ton test
+    end
+  end
+
+  context 'other context' do  
+    it 'should display something' do
+      # ton test
+    end
+  end
+
 end

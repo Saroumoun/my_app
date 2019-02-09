@@ -1,3 +1,15 @@
+<% if @gossips.errors.any? %>
+  <div class="alert alert-danger mt-3" role="alert">
+    <p>Gossip creation process failed due to:</p>
+      <ul>
+      <% @gossips.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
 <%= form_tag url_for(action: 'create'), method: "post" do %>
   <%= text_field_tag 'title', '', class: 'form-control mt-3', placeholder: 'Title'%>
   <%= text_area_tag 'content', '', class: 'form-control mt-1', placeholder: 'Content'%>
