@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-4.times do
- city = City.create(name: Faker::Address.city, zip_code: "#{rand(00..99)}#{rand(00..99)}#{rand(00..99)}")
+10.times do
+ city = City.create(name: Faker::Address.city, zip_code: "#{rand(0..99)}#{rand(0..99)}#{rand(0..99)}")
 end
 
 10.times do

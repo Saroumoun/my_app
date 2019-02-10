@@ -12,9 +12,6 @@ class GossipsController < ApplicationController
   end
 
   def create
-    puts "-*" * 30
-    puts params
-    puts "-*" * 30
     @gossips = Gossip.new(title: params[:title], content: params[:content], user: User.all.sample)
     if @gossips.save
       flash[:notice] = "Gossip successfully created"

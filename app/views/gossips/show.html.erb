@@ -16,7 +16,6 @@
     <%= link_to "Learn more about #{@gossips.user.first_name}", user_path(@gossips.user.id), class: "text-primary"%>
   </div>
   <div class="card-footer text-muted font-italic">
-    created the <%= @gossips.created_at.strftime("%Y/%m/%d") %>
-
+    created the <%= @gossips.created_at.strftime("%Y/%m/%d") %> in <%= link_to "#{@gossips.user.city.name}", user_path(@gossips.user.id), class: "text-primary"%>
   </div>
 </div>
