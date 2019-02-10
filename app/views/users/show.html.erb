@@ -2,7 +2,7 @@
 	  <h1 class="card-header"><%= @users.first_name %> <%= @users.last_name %>'s page</h1>
 	  <div class="card-body"> 
 	    <h5 class="card-title">Description : <span class="font-italic"><%= @users.description %></span></h5>
-	    <p class="card-text"><%= @users.first_name %> is <%= @users.age %> years old and live in <%= @users.city.name %>. Reach this author at : <%= @users.email %></p>
+	    <p class="card-text"><%= @users.first_name %> is <%= @users.age %> years old and live in <%= link_to "#{@users.city.name}", city_path(@users.city.id), class: "text-primary"%>. Reach this author at : <%= @users.email %></p>
 	  </div>
 	</div>
 
