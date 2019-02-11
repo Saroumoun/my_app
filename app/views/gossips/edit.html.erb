@@ -1,2 +1,20 @@
-<h1>Gossips#edit</h1>
-<p>Find me in app/views/gossips/edit.html.erb</p>
+<% if @gossip.errors.any? %>
+  <div class="alert alert-danger mt-3" role="alert">
+    <p>Gossip update process failed due to:</p>
+      <ul>
+      <% @gossip.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for @gossip do |f| %>
+  <div class="form-group mt-3">
+    <%= f.text_field :title, class: 'form-control'%>
+    <%= f.text_field :content, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+	<button type="submit" class="btn btn-secondary"> Edit gossip</button>
+  </div>
+<% end %>
