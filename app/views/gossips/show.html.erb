@@ -10,12 +10,12 @@
     Gossip n°<%= params[:id]%>
   </div>
   <div class="card-body">
-    <h5 class="card-title"><%= @gossips.title%></h5>
-    <p class="card-text"><%= @gossips.content%></p>
-    <p class="card-text"> -- by <%= @gossips.user.first_name%> <%= @gossips.user.last_name%></p>
-    <%= link_to "Learn more about #{@gossips.user.first_name}", user_path(@gossips.user.id), class: "text-primary"%>
+    <h5 class="card-title"><%= @gossip.title%></h5>
+    <p class="card-text"><%= @gossip.content%></p>
+    <p class="card-text"> -- by <%= @gossip.user.first_name%> <%= @gossip.user.last_name%></p>
+    <%= link_to "Learn more about #{@gossip.user.first_name}", user_path(@gossip.user.id), class: "text-primary"%>
   </div>
   <div class="card-footer text-muted font-italic">
-    created the <%= @gossips.created_at.strftime("%Y/%m/%d") %> in <%= link_to "#{@gossips.user.city.name}", city_path(@gossips.user.city.id), class: "text-primary"%>
+    created the <%= @gossip.created_at.strftime("%Y/%m/%d") %> in <%= link_to "#{@gossip.user.city.name}", city_path(@gossip.user.city.id), class: "text-primary"%>
   </div>
 </div>

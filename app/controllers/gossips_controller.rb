@@ -4,18 +4,18 @@ class GossipsController < ApplicationController
   end
 
   def show
-    @gossips = Gossip.find(params[:id])
+    @gossip = Gossip.find(params[:id])
   end
 
   def new
-    @gossips = Gossip.new
+    @gossip = Gossip.new
   end
 
   def create
-    @gossips = Gossip.new(title: params[:title], content: params[:content], user: User.all.sample)
-    if @gossips.save
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user: User.all.sample)
+    if @gossip.save
       flash[:notice] = "Gossip successfully created"
-      redirect_to @gossips
+      redirect_to @gossip
     else
       render :new
     end

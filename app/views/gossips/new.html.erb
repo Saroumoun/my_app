@@ -1,8 +1,8 @@
-<% if @gossips.errors.any? %>
+<% if @gossip.errors.any? %>
   <div class="alert alert-danger mt-3" role="alert">
     <p>Gossip creation process failed due to:</p>
       <ul>
-      <% @gossips.errors.full_messages.each do |message| %>
+      <% @gossip.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
