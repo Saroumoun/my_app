@@ -24,11 +24,11 @@ RSpec.describe GossipsController, type: :controller do
 
 	describe "GET show" do
 	  it "assigns @gossip" do
-	    # création d'une instance
-    gossip = FactoryBot.create(:gossip)
+		    # création d'une instance
+	    gossip = FactoryBot.create(:gossip)
 
-    get :show, params: { id: gossip.id }
-    expect(assigns(:gossip)).to eq(gossip)
+	    get :show, params: { id: gossip.id }
+	    expect(assigns(:gossip)).to eq(gossip)
 	  end
 	end
 
@@ -37,7 +37,13 @@ RSpec.describe GossipsController, type: :controller do
     	gossip = FactoryBot.create(:gossip)
     	
     	expect{post :create, params: {title: gossip.title, content: gossip.content}}.to change(Gossip,:count).by(1)
+    end
+    it "redirects to the new gossip" do
+    	gossip = FactoryBot.create(:gossip)
+      post :create, params: {title: gossip.title, content: gossip.content}
 
+      # en général tu rediriges vers le show de ce que tu viens de créer
+      expect(response).to redirect_to Gossip.last
     end
   end
 
