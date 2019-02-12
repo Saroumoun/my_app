@@ -32,20 +32,14 @@ RSpec.describe GossipsController, type: :controller do
 	  end
 	end
 
-	# context "with valid attributes" do
- #    it "creates a new gossip" do
- #      expect { 
- #        post :create, params: { "gossip" => { title: Faker::Book.title, content: Faker::Hobbit.quote, user: User.all.sample } }
- #      }.to change(Gossip,:count).by(1)
- #    end
-    
- #    it "redirects to the new user" do
- #      post :create, params: { "user" => { email: Faker::Internet.email, password: Faker::Internet.password } }
+	context "with valid attributes" do
+    it "creates a new gossip" do
+    	gossip = FactoryBot.create(:gossip)
+    	
+    	expect{post :create, params: {title: gossip.title, content: gossip.content}}.to change(Gossip,:count).by(1)
 
- #      # en général tu rediriges vers le show de ce que tu viens de créer
- #      response.should redirect_to User.last
- #    end
- #  end
+    end
+  end
 
   
 end
