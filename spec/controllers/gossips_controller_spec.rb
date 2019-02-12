@@ -30,22 +30,66 @@ RSpec.describe GossipsController, type: :controller do
 	    get :show, params: { id: gossip.id }
 	    expect(assigns(:gossip)).to eq(gossip)
 	  end
+		  it "renders the show template" do
+	    # va sur show
+	    gossip = FactoryBot.create(:gossip)
+	    get :show, params: { id: gossip.id }
+
+	    # on doit rediriger vers show
+	    expect(response).to render_template("show")
+  	end
 	end
 
-	context "with valid attributes" do
-    it "creates a new gossip" do
-    	gossip = FactoryBot.create(:gossip)
-    	
-    	expect{post :create, params: {title: gossip.title, content: gossip.content}}.to change(Gossip,:count).by(1)
-    end
-    it "redirects to the new gossip" do
-    	gossip = FactoryBot.create(:gossip)
-      post :create, params: {title: gossip.title, content: gossip.content}
+	describe "POST create" do
+		context "with valid attributes" do
+	    it "creates a new gossip" do
+	    	gossip = FactoryBot.create(:gossip)
+	    	
+	    	expect{post :create, params: {title: gossip.title, content: gossip.content}}.to change(Gossip,:count).by(1)
+	    end
+	    it "redirects to the new gossip" do
+	    	gossip = FactoryBot.create(:gossip)
+	      post :create, params: {title: gossip.title, content: gossip.content}
 
-      # en général tu rediriges vers le show de ce que tu viens de créer
-      expect(response).to redirect_to Gossip.last
-    end
-  end
+	      # en général tu rediriges vers le show de ce que tu viens de créer
+	      expect(response).to redirect_to Gossip.last
+	    end
+	  end
 
+	  context "with invalid attributes" do
+	    it "doest not create a new gossip" do
+	    	gossip = FactoryBot.create(:gossip)
+	    	
+	    	expect{post :create, params: {title: gossip.title, content: nil}}.to_not change(Gossip,:count)
+	    end
+	    it "re-renders the new method" do
+	      gossip = FactoryBot.create(:gossip)
+	      post :create, params: {title: gossip.title, content: nil}
+	      expect(response).to render_template :new
+	    end
+	  end
+	end
+
+	describe "GET edit" do
+  	it "assigns @gossips" do
+	    # création d'une instance
+	    gossip = FactoryBot.create(:gossip)
+
+	    # on va sur edit
+	    get :edit, params: { id: gossip.id }
+
+	    # @user doit être user
+	    expect(assigns(:gossip)).to eq(gossip)
+  	end
+
+  	it "renders the edit template" do
+	    # va sur edit
+	    gossip = FactoryBot.create(:gossip)
+	    get :edit, params: { id: gossip.id }
+
+	    # on doit rediriger vers edit
+	    expect(response).to render_template("edit")
+  	end
+	end
   
 end
