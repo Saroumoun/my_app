@@ -19,5 +19,16 @@
     created the <%= @gossip.created_at.strftime("%Y/%m/%d") %> in <%= link_to "#{@gossip.user.city.name}", city_path(@gossip.user.city.id), class: "text-primary"%>
   </div>
 </div>
-<%= link_to "Delete", gossip_path(@gossip.id), method: "delete", class: "badge badge-danger mt-1 ml-1 float-right", data: { confirm: "Are you sure about deleting this gossip ?"}%>
-<%= link_to "Edit", edit_gossip_path, class: "badge badge-secondary mt-1 ml-1 float-right" %>
+<div class="d-flex flex-row-reverse mt-1">
+  <%= link_to "Delete", gossip_path(@gossip.id), method: "delete", class: "badge badge-danger ml-1", data: { confirm: "Are you sure about deleting this gossip ?"}%>
+  <%= link_to "Edit", edit_gossip_path, class: "badge badge-secondary ml-1" %>
+  <%= link_to "Comment", new_gossip_comment_path(@gossip.id), class: "badge badge-info ml-1" %>
+</div>
+
+
+<ul class="list-group list-group-flush mt-5 col-4 offset-4">
+  <% @gossip.comments.each do |comment| %>
+  <li class="list-group-item text-center"><%= comment.content%> #<%= comment.user.first_name %> <%= comment.user.last_name %> <%= link_to "Edit", edit_gossip_comment_path(@gossip.id,comment.id), class: "badge badge-secondary ml-1" %></li>
+  <% end %>
+</ul>
+<p class="d-flex flex-row-reverse mt-1">Comment count: <%= @gossip.comments.count%></p>

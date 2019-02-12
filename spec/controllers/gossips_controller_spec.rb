@@ -1,54 +1,51 @@
-# require 'rails_helper'
+require 'rails_helper'
 
-# RSpec.describe GossipsController, type: :controller do
+RSpec.describe GossipsController, type: :controller do
 
-#   describe "GET #index" do
-#     it "returns http success" do
-#       get :index
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+	describe "GET index" do
+		it "assigns @gossips" do
+	    # création d'une instance
+	    gossip = FactoryBot.create(:gossip)
 
-#   describe "GET #show" do
-#     it "returns http success" do
-#       get :show
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+	    # on va sur index
+	    get :index
 
-#   describe "GET #new" do
-#     it "returns http success" do
-#       get :new
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+	    # @gossips doit être une array qui contient gossip
+	    expect(assigns(:gossips)).to eq([gossip])
+		end
+	  it "renders the index template" do
+	    # va sur index
+	    get :index
 
-#   describe "GET #create" do
-#     it "returns http success" do
-#       get :create
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+	    # on doit rediriger vers index
+	    expect(response).to render_template("index")
+	  end
+	end
 
-#   describe "GET #edit" do
-#     it "returns http success" do
-#       get :edit
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+	describe "GET show" do
+	  it "assigns @gossip" do
+	    # création d'une instance
+    gossip = FactoryBot.create(:gossip)
 
-#   describe "GET #update" do
-#     it "returns http success" do
-#       get :update
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+    get :show, params: { id: gossip.id }
+    expect(assigns(:gossip)).to eq(gossip)
+	  end
+	end
 
-#   describe "GET #destroy" do
-#     it "returns http success" do
-#       get :destroy
-#       expect(response).to have_http_status(:success)
-#     end
-#   end
+	# context "with valid attributes" do
+ #    it "creates a new gossip" do
+ #      expect { 
+ #        post :create, params: { "gossip" => { title: Faker::Book.title, content: Faker::Hobbit.quote, user: User.all.sample } }
+ #      }.to change(Gossip,:count).by(1)
+ #    end
+    
+ #    it "redirects to the new user" do
+ #      post :create, params: { "user" => { email: Faker::Internet.email, password: Faker::Internet.password } }
 
-# end
+ #      # en général tu rediriges vers le show de ce que tu viens de créer
+ #      response.should redirect_to User.last
+ #    end
+ #  end
+
+  
+end

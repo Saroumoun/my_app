@@ -1,0 +1,16 @@
+<% if @comment.errors.any? %>
+  <div class="alert alert-danger mt-3" role="alert">
+    <p>Comment creation process failed due to:</p>
+      <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_tag url_for(action: 'update'), method: "patch" do %>
+  <%= text_area_tag 'content', @comment.content, class: 'form-control mt-3'%>
+  <%= submit_tag "Edit comment", class: "btn btn-secondary mt-1" %>
+  <%= link_to "Delete", gossip_comment_path(@comment.gossip.id, @comment.id), method: "delete", class: "btn btn-danger mt-1", data: { confirm: "Are you sure about deleting this comment ?"}%>
+<% end %>
