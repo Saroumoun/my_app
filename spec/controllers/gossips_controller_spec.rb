@@ -91,5 +91,71 @@ RSpec.describe GossipsController, type: :controller do
 	    expect(response).to render_template("edit")
   	end
 	end
+
+	describe "PUT update" do
+	  before :each do
+	    @gossip = FactoryBot.create(:gossip)
+	  end
+
+
+	  context "with valid attributes" do
+	    it "located the requested @gossip" do
+	    	put :update, params: { id: @gossip.id, "gossip" => { title: Faker::Book.title, content: Faker::Hobbit.quote } }
+
+	      expect(assigns(:gossip)).to eq(@gossip)      
+	    end
+	  
+	    it "changes @gossip's attributes" do
+	      title = Faker::Book.title
+	      content = Faker::Hobbit.quote
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My title", content: "My content" } }
+	      @gossip.reload
+	      expect(@gossip.title).to eq("My title")
+	      expect(@gossip.content).to eq("My content")
+	    end
+	  
+	    it "redirects to the updated gossip" do
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My title", content: "My content" } }
+
+	      # redirige où tu veux
+	      expect(response).to redirect_to @gossip
+	    end
+	  end
+	  
+	  context "with invalid attributes" do
+	    it "locates the requested @gossip" do
+	    	#title lenght should be 3 to 50 char 
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My", content: "My content" } }
+	      expect(assigns(:gossip)).to eq(@gossip)      
+	    end
+	    
+	    it "does not change @gossip's attributes" do
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My", content: "My content" } }
+	      @gossip.reload
+	      expect(@gossip.title).not_to eq("My")
+	      expect(@gossip.content).not_to eq("My content")
+	    end
+	    
+	    it "re-renders the edit method" do
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My", content: "My content" } }
+	      expect(response).to render_template :edit
+	    end
+  	end
+	end
+
+	describe 'DELETE destroy' do
+	  before :each do
+	    @gossip = FactoryBot.create(:gossip)
+	  end
+  
+	  it "deletes the gossip" do
+	  	expect{delete :destroy, params: { id: @gossip.id}}.to change(Gossip,:count).by(-1)
+	  end
+	    
+	  it "redirects to gossips#index" do
+	    delete :destroy, params: { id: @gossip.id}
+	    expect(response).to redirect_to root_path
+	  end
+	end
   
 end
