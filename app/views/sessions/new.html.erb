@@ -1,0 +1,13 @@
+<% if flash.now[:danger] %>
+  <div class="alert alert-danger mt-3" role="alert">
+   <div class="danger"> 
+     <%=flash.now[:danger] %>
+   </div>
+  </div>
+<% end %>
+
+<%= form_tag url_for(action: 'create'), method: "post" do %>
+  <%= text_field_tag 'email', '', class: 'form-control mt-3', placeholder: 'Email'%>
+  <%= password_field_tag 'password', '', class: 'form-control mt-1', placeholder: 'Password'%>
+  <%= submit_tag "Sign In", class: "btn btn-secondary mt-1" %>
+<% end %>
