@@ -6,5 +6,6 @@ FactoryBot.define do
     last_name {Faker::Name.last_name}
     age {Faker::Number.number(2)}
     city {FactoryBot.create(:city)}
+    password {"test1234"}
   end
 end

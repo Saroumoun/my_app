@@ -6,7 +6,7 @@
   </div>
 <% end %> 
 
-<h2 class="d-flex justify-content-center mt-3">Welcome <%= User.find_by(id: session[:user_id]).first_name.capitalize %></h2>
+<h2 class="d-flex justify-content-center mt-3">Welcome to The Gossip Project</h2>
 
 <div class="row mt-3">
 	<% @gossips.each do |gossip| %>

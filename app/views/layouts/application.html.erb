@@ -21,8 +21,12 @@
         <div class="navbar-nav">
           <%= link_to "Create gossip", new_gossip_path, :class => "nav-item nav-link"%>
           <%= link_to "Team", team_path, :class => "nav-item nav-link"%>
-          <%= link_to "Contact", contact_path, :class => "nav-item nav-link"%>
-          <%= link_to "Sign In", new_session_path, :class => "nav-item nav-link"%>
+          <%= link_to "Contact", contact_path, :class => "nav-item nav-link"%>          
+          <% if session[:user_id] != nil %> 
+            <%= link_to "Log Out", session_path(session[:user_id]), method: :delete, class: "nav-item nav-link", data: { confirm: "Are you sur about that ?"} %>
+          <% else %>
+            <%= link_to "Sign In", new_session_path, :class => "nav-item nav-link"%>
+          <% end %>
         </div>
       </div>
     </nav>

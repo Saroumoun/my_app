@@ -12,7 +12,11 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user: User.all.sample)
+    puts "_-" * 30
+    puts params 
+    puts session
+    puts "_-" * 30
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user: current_user)
     if @gossip.save
       flash[:notice] = "Gossip successfully created"
       redirect_to @gossip
