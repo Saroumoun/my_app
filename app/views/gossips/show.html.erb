@@ -20,9 +20,9 @@
   </div>
 </div>
 <div class="d-flex flex-row-reverse mt-1">
-  <%= link_to "Delete", gossip_path(@gossip.id), method: "delete", class: "badge badge-danger ml-1", data: { confirm: "Are you sure about deleting this gossip ?"}%>
-  <%= link_to "Edit", edit_gossip_path, class: "badge badge-secondary ml-1" %>
-  <%= link_to "Comment", new_gossip_comment_path(@gossip.id), class: "badge badge-info ml-1" %>
+    <%= link_to "Delete", gossip_path(@gossip.id), method: "delete", class: "badge badge-danger ml-1", data: { confirm: "Are you sure about deleting this gossip ?"}%>
+    <%= link_to "Edit", edit_gossip_path, class: "badge badge-secondary ml-1" %>
+    <%= link_to "Comment", new_gossip_comment_path(@gossip.id), class: "badge badge-info ml-1" %>
 </div>
 
 

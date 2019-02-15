@@ -65,7 +65,7 @@ RSpec.describe GossipsController, type: :controller do
 	    end
 	    it "re-renders the new method" do
 	      gossip = FactoryBot.create(:gossip)
-	      post :create, params: {title: gossip.title, content: nil}
+	      post :create, params: {title: gossip.title, content: nil}, session: {user_id: gossip.user.id}
 	      expect(response).to render_template :new
 	    end
 	  end
@@ -77,16 +77,16 @@ RSpec.describe GossipsController, type: :controller do
 	    gossip = FactoryBot.create(:gossip)
 
 	    # on va sur edit
-	    get :edit, params: { id: gossip.id }
+	    get :edit, params: { id: gossip.id }, session: {user_id: gossip.user.id}
 
-	    # @user doit être user
+	    # @gossip doit être gossip
 	    expect(assigns(:gossip)).to eq(gossip)
   	end
 
   	it "renders the edit template" do
 	    # va sur edit
 	    gossip = FactoryBot.create(:gossip)
-	    get :edit, params: { id: gossip.id }
+	    get :edit, params: { id: gossip.id }, session: {user_id: gossip.user.id}
 
 	    # on doit rediriger vers edit
 	    expect(response).to render_template("edit")
@@ -101,7 +101,7 @@ RSpec.describe GossipsController, type: :controller do
 
 	  context "with valid attributes" do
 	    it "located the requested @gossip" do
-	    	put :update, params: { id: @gossip.id, "gossip" => { title: Faker::Book.title, content: Faker::Hobbit.quote } }
+	    	put :update, params: { id: @gossip.id, "gossip" => { title: Faker::Book.title, content: Faker::Hobbit.quote }}, session: {user_id: @gossip.user.id}
 
 	      expect(assigns(:gossip)).to eq(@gossip)      
 	    end
@@ -109,14 +109,14 @@ RSpec.describe GossipsController, type: :controller do
 	    it "changes @gossip's attributes" do
 	      title = Faker::Book.title
 	      content = Faker::Hobbit.quote
-	      put :update, params: { id: @gossip.id, "gossip" => { title: "My title", content: "My content" } }
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My title", content: "My content" }}, session: {user_id: @gossip.user.id}
 	      @gossip.reload
 	      expect(@gossip.title).to eq("My title")
 	      expect(@gossip.content).to eq("My content")
 	    end
 	  
 	    it "redirects to the updated gossip" do
-	      put :update, params: { id: @gossip.id, "gossip" => { title: "My title", content: "My content" } }
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My title", content: "My content" }}, session: {user_id: @gossip.user.id}
 
 	      # redirige où tu veux
 	      expect(response).to redirect_to @gossip
@@ -126,19 +126,19 @@ RSpec.describe GossipsController, type: :controller do
 	  context "with invalid attributes" do
 	    it "locates the requested @gossip" do
 	    	#title lenght should be 3 to 50 char 
-	      put :update, params: { id: @gossip.id, "gossip" => { title: "My", content: "My content" } }
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My", content: "My content" }}, session: {user_id: @gossip.user.id}
 	      expect(assigns(:gossip)).to eq(@gossip)      
 	    end
 	    
 	    it "does not change @gossip's attributes" do
-	      put :update, params: { id: @gossip.id, "gossip" => { title: "My", content: "My content" } }
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My", content: "My content" }}, session: {user_id: @gossip.user.id}
 	      @gossip.reload
 	      expect(@gossip.title).not_to eq("My")
 	      expect(@gossip.content).not_to eq("My content")
 	    end
 	    
 	    it "re-renders the edit method" do
-	      put :update, params: { id: @gossip.id, "gossip" => { title: "My", content: "My content" } }
+	      put :update, params: { id: @gossip.id, "gossip" => { title: "My", content: "My content" }}, session: {user_id: @gossip.user.id}
 	      expect(response).to render_template :edit
 	    end
   	end
@@ -150,11 +150,11 @@ RSpec.describe GossipsController, type: :controller do
 	  end
   
 	  it "deletes the gossip" do
-	  	expect{delete :destroy, params: { id: @gossip.id}}.to change(Gossip,:count).by(-1)
+	  	expect{delete :destroy, params: { id: @gossip.id}, session: {user_id: @gossip.user.id}}.to change(Gossip,:count).by(-1)
 	  end
 	    
 	  it "redirects to gossips#index" do
-	    delete :destroy, params: { id: @gossip.id}
+	    delete :destroy, params: { id: @gossip.id}, session: {user_id: @gossip.user.id}
 	    expect(response).to redirect_to root_path
 	  end
 	end

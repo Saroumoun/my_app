@@ -1,4 +1,8 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :verify_user_rights, only: [:edit, :update, :destroy]
+
+
   def index
     @gossips = Gossip.all
   end
@@ -8,14 +12,10 @@ class GossipsController < ApplicationController
   end
 
   def new
-    @gossip = Gossip.new
+      @gossip = Gossip.new
   end
 
   def create
-    puts "_-" * 30
-    puts params 
-    puts session
-    puts "_-" * 30
     @gossip = Gossip.new(title: params[:title], content: params[:content], user: current_user)
     if @gossip.save
       flash[:notice] = "Gossip successfully created"
@@ -26,7 +26,7 @@ class GossipsController < ApplicationController
   end
 
   def edit
-    @gossip = Gossip.find(params[:id])
+      @gossip = Gossip.find(params[:id])
   end
 
   def update
@@ -48,5 +48,21 @@ class GossipsController < ApplicationController
 
     flash[:notice] = "Gossip successfully deleted"
     redirect_to root_path
+  end
+
+  private 
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "You need to log in"
+      redirect_to new_session_path
+    end
+  end
+
+  def verify_user_rights
+    unless current_user == Gossip.find(params[:id]).user
+      flash[:danger] = "You are not the author"
+      redirect_to root_path
+    end
   end
 end

@@ -1,0 +1,13 @@
+
+
+
+<%= form_tag url_for(action: 'create'), method: "post" do %>
+  <%= text_field_tag 'first_name', '', class: 'form-control mt-3', placeholder: 'First Name'%>
+  <%= text_field_tag 'last_name', '', class: 'form-control mt-1', placeholder: 'Last Name'%>
+  <%= text_field_tag 'email', '', class: 'form-control mt-1', placeholder: 'Email'%>
+  <%= password_field_tag 'password', '', class: 'form-control mt-1', placeholder: 'Password'%>  
+  <%= number_field_tag 'age', '', class: 'form-control mt-1', placeholder: 'Age'%>
+  <%= text_area_tag 'description', '', class: 'form-control mt-1', placeholder: 'Description'%>
+
+  <%= submit_tag "Create account", class: "btn btn-secondary mt-1" %>
+<% end %>
