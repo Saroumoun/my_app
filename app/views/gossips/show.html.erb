@@ -14,6 +14,15 @@
     <p class="card-text"><%= @gossip.content%></p>
     <p class="card-text"> -- by <%= @gossip.user.first_name%> <%= @gossip.user.last_name%></p>
     <%= link_to "Learn more about #{@gossip.user.first_name}", user_path(@gossip.user.id), class: "text-primary"%>
+    <p class="card-text"><i class="fas fa-heart"></i> x <%= @gossip.likes.count %></p>
+    <% if session[:user_id] %>
+      <% pre_like = @gossip.likes.find { |like| like.user_id == current_user.id} %>
+      <% if pre_like %>
+        <%= link_to "Unlike", gossip_like_path(@gossip.id, pre_like), method: :delete, :class => "btn btn-info"%>
+      <% else %>
+          <%= link_to "Like", gossip_likes_path(@gossip.id), method: :post, :class => "btn btn-info"%>
+      <% end %>
+    <% end %>
   </div>
   <div class="card-footer text-muted font-italic">
     created the <%= @gossip.created_at.strftime("%Y/%m/%d") %> in <%= link_to "#{@gossip.user.city.name}", city_path(@gossip.user.city.id), class: "text-primary"%>

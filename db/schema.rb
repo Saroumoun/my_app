@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_160056) do
+ActiveRecord::Schema.define(version: 2019_02_16_172855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(version: 2019_02_13_160056) do
     t.index ["tag_id"], name: "index_join_table_tag_gossips_on_tag_id"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "gossip_id"
+    t.index ["gossip_id"], name: "index_likes_on_gossip_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -84,5 +93,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_160056) do
   add_foreign_key "gossips", "users"
   add_foreign_key "join_table_tag_gossips", "gossips"
   add_foreign_key "join_table_tag_gossips", "tags"
+  add_foreign_key "likes", "gossips"
+  add_foreign_key "likes", "users"
   add_foreign_key "users", "cities"
 end
