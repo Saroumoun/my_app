@@ -11,5 +11,7 @@
   		<%= text_field_tag 'email', '', class: 'form-control mt-3', placeholder: 'Email'%>
   		<%= password_field_tag 'password', '', class: 'form-control mt-1', placeholder: 'Password'%>
   		<%= submit_tag "Sign in", class: "btn btn-secondary mt-1" %>
+      <%= check_box_tag 'remember_me', value = "1", checked = false, class: 'form-control mt-1'%>
+      <p>Remember me on this computer</p>
 	</div>
 <% end %>

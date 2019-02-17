@@ -17,22 +17,22 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <%= link_to "THE GOSSIP PROJECT", root_path, :class => "navbar-brand"%>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="collapse navbar-collapse d-flex" id="navbarNavAltMarkup">
         
         <div class="navbar-nav">
           <%= link_to "Create gossip", new_gossip_path, :class => "nav-item nav-link"%>
           <%= link_to "Team", team_path, :class => "nav-item nav-link"%>
-          <%= link_to "Contact", contact_path, :class => "nav-item nav-link"%>          
-          <div class="navbar-nav">
-            <% if session[:user_id] != nil %> 
-              <%= link_to "Log Out", session_path(session[:user_id]), method: :delete, class: "nav-item nav-link", data: { confirm: "Are you sur about that ?"} %>
-            <% else %>
-              <%= link_to "Sign In", new_session_path, :class => "nav-item nav-link mr-auto"%>
-              <%= link_to "Sign Up", new_user_path, :class => "nav-item nav-link mr-auto"%>
-            <% end %>
-          </div>
+          <%= link_to "Contact", contact_path, :class => "nav-item nav-link"%>
         </div>
 
+        <div class="navbar-nav ml-auto">
+          <% if (session[:user_id] != nil) || (cookies[:user_id] != nil) %> 
+            <%= link_to "Log Out", session_path(session[:user_id]||cookies[:user_id]), method: :delete, class: "nav-item nav-link", data: { confirm: "Are you sur about that ?"} %>
+          <% else %>
+            <%= link_to "Sign In", new_session_path, :class => "nav-item nav-link mr-auto"%>
+            <%= link_to "Sign Up", new_user_path, :class => "nav-item nav-link mr-auto"%>
+          <% end %>
+        </div>
       </div>
     </nav>
     <div class="container-fluid">

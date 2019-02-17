@@ -1,6 +1,6 @@
 class GossipsController < ApplicationController
-  before_action :authenticate_user, only: [:new, :create, :edit, :update, :destroy]
-  before_action :verify_user_rights, only: [:edit, :update, :destroy]
+  before_action :authenticate_user, only: [:new, :edit, :destroy]
+  before_action :verify_user_rights, only: [:edit, :destroy]
 
 
   def index
